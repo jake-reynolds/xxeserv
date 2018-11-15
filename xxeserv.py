@@ -17,14 +17,21 @@ def main(argv):
     global file
     global ip
     global port
+    help = Fore.RED + 'xxeserv.py -p <listeningPort> -f <file>'
     try:
         opts, args = getopt.getopt(argv,"hp:f:i:",["port=","file=","ip="])
     except getopt.GetoptError:
         print 'xxeserv.py -p <listeningPort> -f <file>'
         sys.exit(2)
+    if len(opts) == 0:
+        print help
+        sys.exit()
     for opt, arg in opts:
+        if opt not in ("-p", "--port", "-f", "--file", "-i", "--ip"):
+            print help
+            sys.exit()
         if opt == '-h':
-            print 'xxeserv.py -p <listeningPort> -f <file>'
+            print help
             sys.exit()
         elif opt in ("-p", "--port"):
             port = int(arg)
